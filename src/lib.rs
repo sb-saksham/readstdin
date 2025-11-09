@@ -1,14 +1,36 @@
-//! This is a library of Utility functions for Command Line Tools
-//! So far it only has a single function to read standard input
-//! # Example
-//! let test: hello;
-use std::io::{self, BufRead, BufReader};
+//! This is a library that provides utilities for command-line tools.
+//! So far it only provides a function to read a line from stdin.
+//! # Examples:
+//! ```
+//! use cli_utils::read_stdin;
+//! let input = read_stdin();
+//! ```
+//! # Panics:
+//! The `read_stdin` function will panic if it fails to read a line with a message "Failed to read input line".
+
+use std::io::{BufRead, BufReader};
+
+pub mod config;
 pub mod colors;
-/// 
+
+
+/// This function reads a line from stdin and returns it as a String.
+/// It will panic if it fails to read a line with a message "Failed to read input line".
+/// # Examples:
+/// ```
+/// use cli_utils::read_stdin;
+/// let input = read_stdin();
+/// ```
 pub fn read_stdin() -> String {
     let stdin = std::io::stdin();
     let mut reader = BufReader::new(stdin.lock());
-    let mut line: String = String::new();
-    reader.read_line(&mut line).expect("Failed to read line!");
+    _read_stdin(&mut reader)
+}
+
+fn _read_stdin<R: BufRead>(reader: &mut R) -> String {
+    let mut line = String::new();
+    reader
+        .read_line(&mut line)
+        .expect("Failed to read input line");
     line.trim().to_string()
 }
