@@ -1,0 +1,7 @@
+[package]
+name = "readstdin"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# readstdin = {path = "../path/to/the cargo.toml file"}
